@@ -1,0 +1,348 @@
+[colors]
+background = #AA000000
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ff6600
+secondary = #e60053
+alert = #e60053
+usr-colour = #0066cc
+
+
+[bar/example]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 24
+radius = 0.0
+fixed-center = false
+bottom = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+
+border-size = 0
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 3
+module-margin-right = 3
+
+font-0 = "Font Awesome 5 Free:style=Solid:antialias=true:pixelsize=8.5;2"
+font-1 = "Font Awesome 5 Brands:style=Solid:antialias=true:pixelsize=8.5;2"
+font-2 = "Noto Sans Regular:antialias=true:pixelsize=8;2"
+
+modules-left = i3
+modules-center = xwindow
+modules-right = xkeyboard xbacklight volume filesystem memory cpu cpufreq wlan eth0 eth1 battery temperature date powermenu
+
+tray-position = right
+tray-transparent = true
+tray-padding = 0
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:75:...%
+
+
+[module/xkeyboard]
+type = internal/xkeyboard
+;blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+
+label-layout = %layout%
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.foreground}
+label-indicator-background = ${colors.alert}
+
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted =  %used%/%total%
+label-unmounted =  %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+;strip-wsnumbers = true
+
+ws-icon-0 = 1:term;
+ws-icon-1 = 2:dev;
+ws-icon-2 = 3:www;
+ws-icon-3 = 4:media;
+ws-icon-4 = 5:fm;
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-9 = 10:monitor;
+;ws-icon-default = 
+
+label-focused = %icon%
+label-focused-background = ${colors.background}
+label-focused-padding = 2
+label-focused-foreground = ${colors.primary}
+
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+
+[module/xbacklight]
+type = internal/xbacklight
+format =  <label>
+label = %percentage%
+
+
+[module/cpu]
+type = internal/cpu
+interval = 1
+label =  %percentage%%
+
+
+[module/cpufreq]
+type = custom/script
+exec = cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'
+label =  %output%
+interval = 1
+
+
+[module/memory]
+type = internal/memory
+interval = 1
+label =  %gb_used%
+
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 1
+margin-right = 0
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %signal%% [%essid%]
+
+format-disconnected = 
+format-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground}
+
+
+[module/eth0]
+type = internal/network
+interface = wlp3s0
+interval = 1
+
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground}
+label-connected = %local_ip%   %upspeed%  %downspeed%
+
+format-disconnected = ""
+format-disconnected-foreground = ${colors.foreground-alt}
+
+
+[module/eth1]
+type = internal/network
+interface = enp2s0
+interval = 1
+
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground}
+label-connected = %local_ip%   %upspeed%  %downspeed%
+
+format-disconnected = ""
+format-disconnected-foreground = ${colors.foreground-alt}
+
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = "%d/%m"
+date-alt = 
+
+time = "%H:%M:%S"
+time-alt =
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %time% %date%
+
+
+
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%
+label-volume-foreground = ${root.foreground}
+
+format-muted = 
+format-muted-foreground = ${colors.foreground-alt}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+format-charging =  <animation-charging> <label-charging>
+
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-full-prefix = "  "
+format-full-prefix-foreground = ${colors.foreground}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 1
+warn-temperature = 90
+
+format = <ramp> <label>
+format-warn = <label-warn>
+
+label = %temperature%
+label-warn =  %temperature%
+label-warn-foreground = ${colors.alert}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.foreground}
+
+
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.foreground}
+label-close = 
+label-close-foreground = ${colors.foreground-alt}
+label-separator = " "
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = 
+menu-0-0-exec = blurlock
+menu-0-1 = 
+menu-0-1-exec = blurlock; systemctl suspend
+menu-0-2 = 
+menu-0-2-exec = menu-open-1
+menu-0-3 = 
+menu-0-3-exec = menu-open-2
+menu-0-4 = 
+menu-0-4-exec = menu-open-3
+
+menu-1-0 =  
+menu-1-0-foreground = ${colors.foreground-alt}
+menu-1-0-exec = menu-open-0
+menu-1-1 = 
+menu-1-1-foreground = ${colors.foreground-alt}
+menu-1-1-exec = menu-open-0
+menu-1-2 = 
+menu-1-2-foreground = ${colors.alert}
+menu-1-2-exec = systemctl hibernate
+menu-1-3 = 
+menu-1-3-foreground = ${colors.foreground-alt}
+menu-1-3-exec = menu-open-0
+menu-1-4 = 
+menu-1-4-foreground = ${colors.foreground-alt}
+menu-1-4-exec = menu-open-0
+
+menu-2-0 =  
+menu-2-0-foreground = ${colors.foreground-alt}
+menu-2-0-exec = menu-open-0
+menu-2-1 = 
+menu-2-1-foreground = ${colors.foreground-alt}
+menu-2-1-exec = menu-open-0
+menu-2-2 = 
+menu-2-2-foreground = ${colors.foreground-alt}
+menu-2-2-exec = menu-open-0
+menu-2-3 = 
+menu-2-3-foreground = ${colors.alert}
+menu-2-3-exec = systemctl reboot
+menu-2-4 = 
+menu-2-4-foreground = ${colors.foreground-alt}
+menu-2-4-exec = menu-open-0
+
+menu-3-0 =  
+menu-3-0-foreground = ${colors.foreground-alt}
+menu-3-0-exec = menu-open-0
+menu-3-1 = 
+menu-3-1-foreground = ${colors.foreground-alt}
+menu-3-1-exec = menu-open-0
+menu-3-2 = 
+menu-3-2-foreground = ${colors.foreground-alt}
+menu-3-2-exec = menu-open-0
+menu-3-3 = 
+menu-3-3-foreground = ${colors.foreground-alt}
+menu-3-3-exec = menu-open-0
+menu-3-4 = 
+menu-3-4-foreground = ${colors.alert}
+menu-3-4-exec = systemctl poweroff
+
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+; vim:ft=dosini

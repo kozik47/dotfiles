@@ -1,0 +1,8 @@
+backend = "glx";
+shadow = true;
+shadow-opacity = 0.3;
+shadow-offset-x = -17;
+shadow-offset-y = -17;
+vsync = "opengl-swc";
+clear-shadow = true;
+glx-swap-method = "3";

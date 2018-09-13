@@ -1,0 +1,127 @@
+exec --no-startup-id feh --bg-scale $HOME/Pictures/hl3-remastered.jpg
+
+set $mod Mod4
+
+set $FOCUS #ff6600
+set $TEXT #dfdfdf
+set $FOCUSTEXT #000000
+set $UNFOCUS #000000AA
+
+# Layout colors 	bord		bg		text		indicator (split)
+client.focused 		$FOCUS		$FOCUS		$FOCUSTEXT	$FOCUS
+client.focused_inactive $UNFOCUS	$UNFOCUS 	$TEXT		$UNFOCUS
+client.unfocused 	$UNFOCUS	$UNFOCUS 	$TEXT		$UNFOCUS
+client.urgent 		$FOCUS		$UNFOCUS 	$TEXT		$FOCUS
+client.background 	$UNFOCUS
+
+font pango:NotoSansRegular 8
+
+floating_modifier $mod
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+space floating toggle
+
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+a focus parent
+
+bindsym $mod+z focus child
+
+bindsym $mod+1 workspace 1:term
+bindsym $mod+2 workspace 2:dev
+bindsym $mod+3 workspace 3:www
+bindsym $mod+4 workspace 4:media
+bindsym $mod+5 workspace 5:fm
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10:monitor
+
+bindsym $mod+Shift+1 move container to workspace 1:term
+bindsym $mod+Shift+2 move container to workspace 2:dev
+bindsym $mod+Shift+3 move container to workspace 3:www
+bindsym $mod+Shift+4 move container to workspace 4:media
+bindsym $mod+Shift+5 move container to workspace 5:fm
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10:monitor
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute  
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute 
+
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+bindsym XF86Sleep exec systemctl suspend
+
+bindsym $mod+l exec blurlock
+
+gaps inner 6
+gaps outer 0
+smart_gaps on
+
+default_border pixel 1
+#for_window [class="^.*"] border pixel 0
+smart_borders on
+
+assign [class="URxvt"] 1:term
+assign [class="Geany"] 2:dev
+assign [class="Google"] 3:www
+assign [class="Firefox"] 3:www
+assign [class="Tor"] 3:www
+assign [class="vlc"] 4:media
+assign [class="Pcmanfm"] 5:fm
+for_window [class="Wine"] floating enable
+
+#bindsym Super_L exec i3-dmenu-desktop
+bindsym $mod+Return exec urxvt
+exec --no-startup-id synclient TapButton1=1 TapButton2=3 TapButton3=2
+exec --no-startup-id compton --config $HOME/.config/compton/config
+exec --no-startup-id $HOME/.config/polybar/launch.sh
+bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+c exec --no-startup-id rofi -show run
+bindsym $mod+Tab exec --no-startup-id rofi -show window

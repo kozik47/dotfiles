@@ -1,0 +1,17 @@
+rofi.show-icons: true
+rofi.drun-icon-theme: Obsidian-Light
+
+rofi.color-enabled: true
+rofi.color-window: argb:cc000000, #ff6600, argb:00000000
+rofi.color-normal: argb:00000000, #dfdfdf, argb:00000000, argb:00000000, #ff6600
+rofi.color-urgent: argb:00000000, #dfdfdf, argb:00000000, argb:00000000, #ff6600
+rofi.color-active: argb:00000000, #dfdfdf, argb:00000000, argb:00000000, #ff6600
+
+rofi.columns: 1
+rofi.hide-scrollbar: true
+rofi.width: 500
+rofi.lines: 8
+
+rofi.font: NotoSansMono 10
+
+rofi.modi: run,drun,window
